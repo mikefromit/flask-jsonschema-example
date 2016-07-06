@@ -38,11 +38,11 @@ https://python-jsonschema.readthedocs.org/en/latest/
 
 ## Implementation with Flask
 
-All the magic is done via a decorator on the flask endpoint which specifies
-a jsonschema. The decorator will validate the schema and return the decorated
+All the magic is done via a decorator on the flask route which specifies
+a jsonschema to validate against. The decorator will validate the schema and return the decorated
 function or it will return an error.
 
-**Example**
+**Example Decorator**
 
 ```python
 from schemas import input_foo_schema
@@ -77,7 +77,7 @@ def foo():
 
 ## The TODO schema
 
-`schemas\todo_input_schema.py`
+[schemas\todo_input_schema.py](schemas/input_todo_schema.py)
 
 ```
 input_todo_schema = {
@@ -113,6 +113,20 @@ input_todo_schema = {
 
 ```
 
+**Example Error**
+
+A post request to the /todos endpoint without the required userId field.
+
+```
+{
+  "errors": [
+    "'userId' is a required property"
+  ],
+  "message": "invalid input",
+  "success": false
+}
+```
+
 ## Documentation with Sphinx
 
 If you would like that route to show up in your documentation and you
@@ -130,7 +144,7 @@ Within your documentation you can then specify what endpoints you want documente
    :include-empty-docstring:
 ```
 
-You can then spruce up your endpoint docstring to include the jsonschema 
+You can then spruce up your route docstring to include the jsonschema 
 
 **Example**
 
@@ -160,6 +174,10 @@ def add_todo():
         .. literalinclude:: /../../schemas/input_foo_schema_.py
            :lines: 1-30
 ```
+
+**Example Docs**
+
+![Example Sphinx documentation](http://i.imgur.com/j7rnUL1.png)
 
 # Conclusion
 
